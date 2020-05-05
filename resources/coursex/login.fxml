@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import com.jfoenix.controls.*?>
+
+<VBox
+    xmlns="http://javafx.com/javafx"
+    xmlns:fx="http://javafx.com/fxml"
+    fx:controller="coursex.LoginSceneController"
+    style="-fx-font-family: DengXian; -fx-font-size: 18;" alignment="CENTER">
+    <HBox alignment="CENTER">
+        <VBox prefWidth="300.0">
+            <Label text="CourseX" style="-fx-font-family: Ubuntu; -fx-font-size: 42;">
+                <VBox.margin><Insets top="6"/></VBox.margin>
+            </Label>
+            <Label text="Login" style="
+                -fx-font-family: Ubuntu;
+                -fx-font-size: 28;
+                -fx-text-fill: #9e9e9e">
+                <VBox.margin><Insets top="6"/></VBox.margin>
+            </Label>
+            <JFXTextField fx:id="_userNameField" promptText="学号">
+                <VBox.margin><Insets top="6"/></VBox.margin>
+            </JFXTextField>
+            <JFXPasswordField fx:id="_passwordField" promptText="教学网密码">
+                <VBox.margin><Insets top="6"/></VBox.margin>
+            </JFXPasswordField>
+            <BorderPane>
+                <VBox.margin><Insets top="12"/></VBox.margin>
+                <center>
+                    <Label
+                        fx:id="_errorLabel" visible="false" wrapText="true"
+                        style="-fx-font-size: 16; -fx-text-fill: #f44336"/>
+                </center>
+                <right>
+                    <HBox>
+                        <JFXButton text="登录" prefWidth="90" style="
+                            -fx-effect: dropshadow(gaussian, #bdbdbd, 10, 0, 2, 3);
+                            -fx-cursor: hand;
+                            -fx-background-radius: 20;
+                            -fx-background-color: #1e88e5;
+                            -fx-text-fill: #FFFFFF;"
+                            onMouseClicked="#onLoginButtonClicked">
+                            <HBox.margin><Insets left="12"/></HBox.margin>
+                        </JFXButton>
+                    </HBox>
+                </right>
+            </BorderPane>
+        </VBox>
+    </HBox>
+</VBox>

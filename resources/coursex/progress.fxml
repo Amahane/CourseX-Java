@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import com.jfoenix.controls.*?>
+
+<VBox
+    xmlns="http://javafx.com/javafx"
+    xmlns:fx="http://javafx.com/fxml"
+    fx:controller="coursex.ProgressSceneController"
+    alignment="CENTER">
+    <HBox alignment="CENTER">
+        <VBox style="-fx-font-family: DengXian; -fx-font-size: 18;">
+            <JFXProgressBar fx:id="_progressBar" prefWidth="360">
+                <VBox.margin><Insets bottom="12"/></VBox.margin>
+            </JFXProgressBar>
+            <HBox alignment="CENTER_LEFT">
+                <VBox.margin><Insets top="6"/></VBox.margin>
+                <HBox prefWidth="24" prefHeight="24" alignment="CENTER">
+                    <SVGPath fx:id="_iaaaLoginIcon"/>
+                </HBox>
+                <Label fx:id="_iaaaLoginLabel" text="登录 IAAA"/>
+            </HBox>
+            <HBox alignment="CENTER_LEFT">
+                <VBox.margin><Insets top="6"/></VBox.margin>
+                <HBox prefWidth="24" prefHeight="24" alignment="CENTER">
+                    <SVGPath fx:id="_courseLoginIcon"/>
+                </HBox>
+                <Label fx:id="_courseLoginLabel" text="登录课程网"/>
+            </HBox>
+            <HBox alignment="CENTER_LEFT">
+                <VBox.margin><Insets top="6"/></VBox.margin>
+                <HBox prefWidth="24" prefHeight="24" alignment="CENTER">
+                    <SVGPath fx:id="_parseCourseListIcon"/>
+                </HBox>
+                <Label fx:id="_parseCourseListLabel" text="解析课程列表"/>
+            </HBox>
+            <HBox alignment="CENTER_LEFT">
+                <VBox.margin><Insets top="6"/></VBox.margin>
+                <HBox prefWidth="24" prefHeight="24" alignment="CENTER">
+                    <SVGPath fx:id="_parseCourseIcon"/>
+                </HBox>
+                <Label fx:id="_parseCourseLabel" text="解析课程信息"/>
+            </HBox>
+        </VBox>
+    </HBox>
+</VBox>
