@@ -32,7 +32,7 @@ public class CourseLogin {
                 }
                 @Override public void cancelled() {
                     try(httpClient) {
-                        callback.failed(new LoginException("登录已取消。"));
+                        callback.failed(new ApplicationException("登录已取消。"));
                     } catch (Exception ignored) {}
                 }
             }
@@ -41,7 +41,7 @@ public class CourseLogin {
 
     private static String buildRequestUrl(String token) {
         return CourseLogin._courseLoginUrl  +
-            "&rand="  + new Random().nextFloat() +
+            "?_rand=" + new Random().nextFloat() +
             "&token=" + token;
     }
 

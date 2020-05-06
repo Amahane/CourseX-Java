@@ -47,7 +47,7 @@ public class ProgressSceneController implements Initializable {
         this.markProcessing(TaskName.PARSE_COURSE_LIST);
     }
 
-    public void onCompleteParseCourseList(List<Pair<Integer, String>> courseNames) {
+    public void onCompleteParseCourseList(Map<String, String> courseNames) {
         this._progressBar.setProgress(0.4);
         this.markDone(TaskName.PARSE_COURSE_LIST);
         this.markProcessing(TaskName.PARSE_COURSE);

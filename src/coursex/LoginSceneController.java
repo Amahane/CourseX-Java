@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 
 public class LoginSceneController {
-    public void onLoginError(LoginException e) {
+    public void onLoginError(ApplicationException e) {
         this._errorLabel.setText(e.getMessage());
         this._errorLabel.setVisible(true);
     }

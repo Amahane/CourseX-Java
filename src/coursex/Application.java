@@ -1,12 +1,14 @@
 package coursex;
 
-import javafx.application.Platform;
-import javafx.scene.Scene;
-import javafx.scene.text.Font;
-import javafx.stage.Stage;
-import javafx.fxml.FXMLLoader;
-import org.apache.hc.client5.http.cookie.CookieStore;
-import org.apache.hc.core5.concurrent.FutureCallback;
+import java.util.*;
+import javafx.fxml.*;
+import javafx.stage.*;
+import javafx.scene.*;
+import javafx.scene.text.*;
+import javafx.application.*;
+import org.apache.hc.core5.concurrent.*;
+import org.apache.hc.client5.http.cookie.*;
+
 
 public class Application extends javafx.application.Application {
     @Override public void start(Stage stage) throws Exception {
@@ -30,42 +32,62 @@ public class Application extends javafx.application.Application {
                 CourseLogin.loginAsync(token, new FutureCallback<>() {
                     @Override public void completed(CookieStore cookieStore) {
                         Application.this._progressSceneController.onCompleteCourseLogin();
-                        for (var cookie : cookieStore.getCookies())
-                            System.out.println(cookie.getName() + ": "+ cookie.getValue());
+                        CourseListParser.fetchAndParse(cookieStore, new FutureCallback<>() {
+                            @Override public void completed(
+                                Map<String, String> courseNames
+                            ) {
+                                Platform.runLater(() -> Application.this
+                                    ._progressSceneController
+                                    .onCompleteParseCourseList(courseNames));
+                                for (var courseID : courseNames.keySet())
+                                    System.out.println(
+                                        courseNames.get(courseID) + " (" +
+                                        courseID + ")");
+                            }
+                            @Override public void failed(Exception e) {
+                                Application.this.onApplicationException(
+                                    e instanceof ApplicationException
+                                        ? (ApplicationException) e
+                                        : new ApplicationException("发生内部错误，登录失败，请尝试重新登录。", e));
+                            }
+                            @Override public void cancelled() {
+                                Application.this.onApplicationException(
+                                    new ApplicationException("登录已取消。")
+                                );
+                            }
+                        });
                     }
                     @Override public void failed(Exception e) {
-                        Application.this.onLoginError(
-                            e instanceof LoginException
-                                ? (LoginException) e
-                                : new LoginException("发生内部错误，登录失败，请尝试重新登录。", e));
+                        Application.this.onApplicationException(
+                            e instanceof ApplicationException
+                                ? (ApplicationException) e
+                                : new ApplicationException("发生内部错误，登录失败，请尝试重新登录。", e));
                     }
                     @Override public void cancelled() {
-                        Application.this.onLoginError(
-                            new LoginException("登录已取消。")
+                        Application.this.onApplicationException(
+                            new ApplicationException("登录已取消。")
                         );
                     }
                 });
             }
             @Override public void failed(Exception e) {
-                Application.this.onLoginError(
-                    e instanceof LoginException
-                    ? (LoginException) e
-                    : new LoginException("发生内部错误，登录失败，请尝试重新登录。", e));
+                Application.this.onApplicationException(
+                    e instanceof ApplicationException
+                    ? (ApplicationException) e
+                    : new ApplicationException("发生内部错误，登录失败，请尝试重新登录。", e));
             }
             @Override public void cancelled() {
-                Application.this.onLoginError(
-                    new LoginException("登录已取消。")
+                Application.this.onApplicationException(
+                    new ApplicationException("登录已取消。")
                 );
             }
         });
     }
 
-    public void onLoginError(LoginException e) {
-        Platform.runLater(new Runnable() {
-            @Override public void run() {
-                Application.this._loginSceneController.onLoginError(e);
-                Application.this._mainStage.setScene(Application.this._loginScene);
-            }
+    public void onApplicationException(ApplicationException e) {
+        Platform.runLater(() -> {
+            Application.this._loginSceneController.onLoginError(e);
+            Application.this._mainStage.setScene(Application.this._loginScene);
         });
     }
 

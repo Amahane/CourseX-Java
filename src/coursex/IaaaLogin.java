@@ -1,11 +1,9 @@
 package coursex;
 
-import org.apache.hc.client5.http.async.methods.SimpleHttpRequest;
-import org.apache.hc.client5.http.async.methods.SimpleHttpRequests;
-import org.apache.hc.client5.http.async.methods.SimpleHttpResponse;
-import org.apache.hc.client5.http.impl.async.HttpAsyncClients;
-import org.apache.hc.core5.concurrent.FutureCallback;
-import org.apache.hc.core5.http.Method;
+import org.apache.hc.core5.http.*;
+import org.apache.hc.core5.concurrent.*;
+import org.apache.hc.client5.http.impl.async.*;
+import org.apache.hc.client5.http.async.methods.*;
 
 public class IaaaLogin {
     public static void loginAsync(
@@ -35,7 +33,7 @@ public class IaaaLogin {
                 }
                 @Override public void cancelled() {
                     try(httpClient) {
-                        callback.failed(new LoginException("登录已取消。"));
+                        callback.failed(new ApplicationException("登录已取消。"));
                     } catch (Exception ignored) {}
                 }
             }
@@ -52,7 +50,7 @@ public class IaaaLogin {
     private static String resolveResponse(String responseBody) throws Exception {
         var prefix = "{\"success\":true,\"token\":\"";
         if (! responseBody.startsWith(prefix))
-            throw new LoginException("登录失败，请检查学号和教学网密码输入是否正确。");
+            throw new ApplicationException("登录失败，请检查学号和教学网密码输入是否正确。");
         return responseBody.substring(
             prefix.length(),
             prefix.length() + 32);
