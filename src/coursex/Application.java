@@ -1,5 +1,6 @@
 package coursex;
 
+import java.io.Console;
 import java.util.*;
 import javafx.fxml.*;
 import javafx.stage.*;
@@ -39,10 +40,28 @@ public class Application extends javafx.application.Application {
                                 Platform.runLater(() -> Application.this
                                     ._progressSceneController
                                     .onCompleteParseCourseList(courseNames));
-                                for (var courseID : courseNames.keySet())
-                                    System.out.println(
-                                        courseNames.get(courseID) + " (" +
-                                        courseID + ")");
+                                var multipleSession = new MultipleCourseParsingSession(
+                                    cookieStore,
+                                    courseNames.keySet(),
+                                    new FutureCallback<>() {
+                                        @Override public void completed(List<Homework> homeworks) {
+                                            for (var e : homeworks)
+                                                System.out.println(e.name);
+                                        }
+                                        @Override public void failed(Exception e) {
+                                            Application.this.onApplicationException(
+                                                e instanceof ApplicationException
+                                                    ? (ApplicationException) e
+                                                    : new ApplicationException("发生内部错误，数据获取失败，请尝试重新登录。", e));
+                                        }
+                                        @Override public void cancelled() {
+                                            Application.this.onApplicationException(
+                                                new ApplicationException("操作已取消。")
+                                            );
+                                        }
+                                    }
+                                );
+                                multipleSession.start();
                             }
                             @Override public void failed(Exception e) {
                                 Application.this.onApplicationException(
