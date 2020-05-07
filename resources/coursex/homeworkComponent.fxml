@@ -9,44 +9,73 @@
     xmlns="http://javafx.com/javafx"
     xmlns:fx="http://javafx.com/fxml"
     fx:controller="coursex.HomeworkComponentController"
-    style="-fx-font-family: DengXian;"
+    style="-fx-font-family: DengXian; -fx-padding: 0 12 9 12;"
     prefWidth="0" alignment="TOP_CENTER">
-    <BorderPane maxWidth="414" style="
+    <BorderPane maxWidth="600" style="
         -fx-background-color: #FFFFFF;
-        -fx-background-radius: 12;
-        -fx-effect: dropshadow(gaussian, #263238, 6, 0, 1, 1);
-        -fx-padding: 12">
-        <VBox.margin><Insets left="12" right="12" bottom="6"/></VBox.margin>
-        <left>
-            <StackPane>
-                <BorderPane.margin><Insets right="12"/></BorderPane.margin>
-                <VBox alignment="TOP_CENTER">
-                </VBox>
-                <VBox fx:id="_homeworkCompletedBox" alignment="TOP_CENTER">
-                    <HBox prefWidth="24" prefHeight="24" alignment="CENTER">
-                        <VBox.margin><Insets left="2" top="12" bottom="12"/></VBox.margin>
-                        <SVGPath fill="#4caf50" scaleX="3" scaleY="3">
-                            <content>M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z</content>
-                        </SVGPath>
-                    </HBox>
-                    <Label text="Done" style="
-                        -fx-font-family: Ubuntu;
-                        -fx-font-size: 21;
-                        -fx-text-fill: #4caf50"/>
-                </VBox>
-            </StackPane>
-        </left>
-        <right>
-
-        </right>
+        -fx-background-radius: 3;
+        -fx-effect: dropshadow(gaussian, #455a64, 6, 0, 1, 1);">
+        <left><Region fx:id="decorativeStripe" prefWidth="4"/></left>
         <center>
-            <VBox>
-                <Label fx:id="_courseNameLabel"/>
-                <Region prefHeight="3"/>
-                <Label fx:id="_homeworkNameLabel" style="-fx-font-size: 20;"/>
-                <Label fx:id="_homeworkDescriptionLabel" visible="false"/>
-            </VBox>
+            <BorderPane style="-fx-padding: 6 9 6 9">
+                <left>
+                    <StackPane prefWidth="60">
+                        <BorderPane.margin><Insets right="12"/></BorderPane.margin>
+                        <VBox
+                            fx:id="completedBox" alignment="CENTER"
+                            style="-fx-padding: 12 0 0 3" spacing="6">
+                            <HBox prefWidth="30" prefHeight="30" alignment="CENTER">
+                                <SVGPath fill="#4caf50" scaleX="3" scaleY="3">
+                                    <content>M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z</content>
+                                </SVGPath>
+                            </HBox>
+                            <Label text="Done" style="
+                                -fx-font-family: Ubuntu;
+                                -fx-font-size: 21;
+                                -fx-text-fill: #4caf50"/>
+                        </VBox>
+                        <VBox
+                            fx:id="notCompletedBox"
+                            style="-fx-font-family: Ubuntu;"
+                            alignment="CENTER" visible="false" spacing="-6">
+                            <Label fx:id="remainingDaysLabel"/>
+                            <Label fx:id="remainingDaysDescriptionLabel"/>
+                        </VBox>
+                    </StackPane>
+                </left>
+                <center>
+                    <BorderPane>
+                        <bottom>
+                            <HBox alignment="CENTER_RIGHT">
+                                <Label fx:id="dueLabel"/>
+                            </HBox>
+                        </bottom>
+                        <right>
+                            <VBox alignment="TOP_RIGHT">
+                                <HBox style="-fx-font-family: Ubuntu" alignment="BOTTOM_RIGHT">
+                                    <Label fx:id="scoreLabel" style="
+                                        -fx-font-size: 24;
+                                        -fx-text-fill: #546e7a"/>
+                                    <Label text="/" style="
+                                        -fx-font-size: 24;
+                                        -fx-text-fill: #90a4ae"/>
+                                    <Label fx:id="scoreTotalLabel" style="
+                                        -fx-font-size: 18;
+                                        -fx-text-fill: #90a4ae"/>
+                                </HBox>
+                            </VBox>
+                        </right>
+                        <center>
+                            <VBox spacing="3">
+                                <Label fx:id="courseNameLabel"/>
+                                <Label fx:id="nameLabel" style="
+                                    -fx-font-size: 20;
+                                    -fx-text-fill: #37474f"/>
+                            </VBox>
+                        </center>
+                    </BorderPane>
+                </center>
+            </BorderPane>
         </center>
     </BorderPane>
-
 </VBox>

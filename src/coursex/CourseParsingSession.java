@@ -117,18 +117,19 @@ public class CourseParsingSession {
                         new Homework(
                             document.title().substring("上载作业： ".length()),
                             document.select("#crumb_1").text(),
+                            "详细信息请打开网页查看。",
                             url,
                             this.parseDateTime(
                                 document.select(".metaField").text()
                             ),
                             false,
-                            "详细信息请打开网页查看。",
                             "Not Scored",
                             document.select(".metaField").next().text()
                         ) :
                         new Homework(
                             document.title().substring("复查提交历史记录: ".length()),
                             document.select("#crumb_1").text(),
+                            "详细信息请打开网页查看。",
                             url,
                             this.parseDateTime(
                                 document
@@ -138,7 +139,6 @@ public class CourseParsingSession {
                                     .text()
                             ),
                             true,
-                            "详细信息请打开网页查看。",
                             document
                                 .select("#aggregateGrade")
                                 .attr("value"),
