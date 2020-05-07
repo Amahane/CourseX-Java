@@ -1,10 +1,14 @@
 package coursex;
 
 import java.time.*;
+import java.util.*;
 
 import javafx.fxml.*;
-import javafx.scene.control.*;
+import javafx.collections.*;
 import javafx.scene.layout.*;
+import javafx.scene.control.*;
+
+import com.jfoenix.controls.*;
 
 public class HomeworkComponentController {
     @FXML private VBox   completedBox;
@@ -13,16 +17,17 @@ public class HomeworkComponentController {
     @FXML private Label  nameLabel;
     @FXML private Label  scoreLabel;
     @FXML private Label  scoreTotalLabel;
-    @FXML private Label  courseNameLabel;
     @FXML private Label  remainingDaysLabel;
     @FXML private Label  remainingDaysDescriptionLabel;
     @FXML private Region decorativeStripe;
+    @FXML private JFXListView<String> tagListView;
 
     public void init(Homework homework, HomeworkSceneContext context) {
         var color = HomeworkComponentController.getColor(homework);
 
         this.initGenericText (homework);
-        this.initGenericStyle(color, context.courseColorAllocator.getColor(homework.courseName));
+        this.initGenericStyle(color);
+        this.initTagListView (homework, context);
 
         if (! homework.isCompleted)
         {
@@ -36,21 +41,13 @@ public class HomeworkComponentController {
         this.nameLabel.setText(homework.name);
         this.scoreLabel.setText(homework.score);
         this.scoreTotalLabel.setText(homework.scoreTotal);
-        this.courseNameLabel.setText(homework.courseName);
     }
 
-    private void initGenericStyle(String color, String courseColor) {
+    private void initGenericStyle(String color) {
         this.dueLabel.setStyle(
             "-fx-font-family: Ubuntu;" +
             "-fx-font-size: 18;" +
             "-fx-text-fill: " + color
-        );
-        this.courseNameLabel.setStyle(
-            "-fx-padding: 1 9 1 9;" +
-            "-fx-font-size: 15;" +
-            "-fx-background-color: " + courseColor + ";" +
-            "-fx-background-radius: 12;" +
-            "-fx-text-fill: #424242;"
         );
         this.decorativeStripe.setStyle("-fx-background-color: " + color);
     }
@@ -70,11 +67,47 @@ public class HomeworkComponentController {
         this.notCompletedBox.setVisible(true);
         this.remainingDaysLabel.setStyle(
             "-fx-font-size: 48;" +
-                "-fx-text-fill: " + color
+            "-fx-text-fill: " + color
         );
         this.remainingDaysDescriptionLabel.setStyle(
             "-fx-font-size: 12;" +
-                "-fx-text-fill: " + color
+            "-fx-text-fill: " + color
+        );
+    }
+
+    private void initTagListView(
+        Homework             homework,
+        HomeworkSceneContext context
+    ) {
+        var tagsRendered = new ArrayList<>(homework.tags);
+        tagsRendered.add(0, homework.courseName);
+        this.tagListView.getStylesheets().add(
+            this.getClass().getResource("hideScrollbar.css").toExternalForm()
+        );
+        this.tagListView.setItems(FXCollections.observableList(tagsRendered));
+        this.tagListView.setCellFactory(listView -> new JFXListCell<>() {
+                @Override protected void updateItem(String tag, boolean empty) {
+                    this.setStyle(
+                        "-fx-background-color: transparent;" +
+                        "-fx-background-insets: 0; -fx-padding: 0;"
+                    );
+                    if (empty) return;
+                    var label = new Label();
+                    label.setText(tag);
+                    label.setStyle(
+                        "-fx-padding: 1 9 1 9;" +
+                        "-fx-font-size: 15;" +
+                        "-fx-text-fill: #424242;" +
+                        "-fx-background-color: " +
+                        context.courseColorAllocator.getColor(tag) + ";" +
+                        "-fx-background-radius: 12;"
+                    );
+                    var container = new VBox();
+                    container.setStyle("-fx-padding: 0 6 0 0");
+                    container.getChildren().add(label);
+                    this.setGraphic(container);
+                }
+            }
         );
     }
 

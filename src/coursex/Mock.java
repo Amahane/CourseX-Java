@@ -14,7 +14,8 @@ public class Mock {
             LocalDateTime.of(2020, Month.JUNE, 1, 23, 59, 0),
             true,
             "100",
-            "100"
+            "100",
+            Arrays.asList("论文")
         ),
         new Homework(
             "Lab: Attack Autolab",
@@ -24,7 +25,8 @@ public class Mock {
             LocalDateTime.of(2020, Month.MAY, 1, 23, 59, 0),
             false,
             "0",
-            "100"
+            "100",
+            Arrays.asList("lab","恐怖主义")
         ),
         new Homework(
             "大作业：证明黎曼猜想",
@@ -34,7 +36,8 @@ public class Mock {
             LocalDateTime.of(2020, Month.JUNE, 1, 23, 59, 0),
             false,
             "0",
-            "100"
+            "100",
+            Arrays.asList("大作业","世界一流大学")
         ),
         new Homework(
             "论文：地球猫猫教降临派大清洗事件",
@@ -44,7 +47,8 @@ public class Mock {
             LocalDateTime.of(2020, Month.JUNE, 1, 23, 59, 0),
             true,
             "100",
-            "100"
+            "100",
+            Arrays.asList("论文")
         ),
         new Homework(
             "拍摄并上传太极足视频",
@@ -64,7 +68,8 @@ public class Mock {
             LocalDateTime.of(2020, Month.JUNE, 1, 23, 59, 0),
             false,
             "0",
-            "100"
+            "100",
+            Arrays.asList("论文")
         )
     );
 }

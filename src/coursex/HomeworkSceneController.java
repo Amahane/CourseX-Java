@@ -21,7 +21,10 @@ public class HomeworkSceneController implements Initializable {
         this._homeworkListView.setItems(this.homeworkList);
         this._homeworkListView.setCellFactory(listView -> new JFXListCell<>() {
             @Override protected void updateItem(Homework homework, boolean empty) {
-                this.setStyle("-fx-background-color: transparent; -fx-background-insets: 0; -fx-padding: 0;");
+                this.setStyle(
+                    "-fx-background-color: transparent;" +
+                    "-fx-background-insets: 0; -fx-padding: 0;"
+                );
                 if (empty) return;
                 var loader = new FXMLLoader(this.getClass().getResource("homeworkComponent.fxml"));
                 try {

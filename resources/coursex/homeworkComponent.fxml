@@ -5,6 +5,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import com.jfoenix.controls.*?>
+
 <VBox
     xmlns="http://javafx.com/javafx"
     xmlns:fx="http://javafx.com/fxml"
@@ -52,12 +54,14 @@
                         </bottom>
                         <right>
                             <VBox alignment="TOP_RIGHT">
-                                <HBox style="-fx-font-family: Ubuntu" alignment="BOTTOM_RIGHT">
+                                <HBox
+                                    style="-fx-font-family: Ubuntu"
+                                    alignment="BASELINE_RIGHT">
                                     <Label fx:id="scoreLabel" style="
                                         -fx-font-size: 24;
                                         -fx-text-fill: #546e7a"/>
                                     <Label text="/" style="
-                                        -fx-font-size: 24;
+                                        -fx-font-size: 21;
                                         -fx-text-fill: #90a4ae"/>
                                     <Label fx:id="scoreTotalLabel" style="
                                         -fx-font-size: 18;
@@ -66,8 +70,19 @@
                             </VBox>
                         </right>
                         <center>
-                            <VBox spacing="3">
-                                <Label fx:id="courseNameLabel"/>
+                            <VBox>
+                                <StackPane>
+                                    <JFXListView
+                                        fx:id="tagListView"
+                                        orientation="HORIZONTAL"
+                                        style="
+                                            -fx-padding: 0 12 0 0;
+                                            -fx-background-insets: 0;
+                                            -fx-background-color: transparent;"/>
+                                    <Label visible="false" style="
+                                        -fx-padding: 1 9 4 9;
+                                        -fx-font-size: 15;"/>
+                                </StackPane>
                                 <Label fx:id="nameLabel" style="
                                     -fx-font-size: 20;
                                     -fx-text-fill: #37474f"/>

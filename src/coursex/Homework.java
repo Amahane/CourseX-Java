@@ -33,7 +33,7 @@ public class Homework {
             isCompleted,
             score,
             scoreTotal,
-            Arrays.asList(courseName)
+            new ArrayList<>()
         );
     }
 
@@ -51,7 +51,7 @@ public class Homework {
         this.due = due;
         this.url = url;
         this.name = name;
-        this.tags = tags;
+        this.tags = new ArrayList<>(tags);
         this.score = score;
         this.courseName = courseName;
         this.scoreTotal = scoreTotal;
