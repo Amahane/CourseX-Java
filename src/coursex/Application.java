@@ -1,5 +1,6 @@
 package coursex;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import javafx.fxml.*;
 import javafx.stage.*;
@@ -45,6 +46,12 @@ public class Application extends javafx.application.Application {
                                     courseNames.keySet(),
                                     new FutureCallback<>() {
                                         @Override public void completed(Homework homework) {
+                                            var semesterBeginTime = LocalDateTime.of(
+                                                2020, 8, 1, 0, 0, 0
+                                            );
+                                            while (semesterBeginTime.isAfter(LocalDateTime.now()))
+                                                semesterBeginTime = semesterBeginTime.minusMonths(6);
+                                            if (homework.due.isBefore(semesterBeginTime)) return;
                                             if (Application.this._notReady) {
                                                 Application.this._notReady = false;
                                                 Platform.runLater(() ->
@@ -53,11 +60,24 @@ public class Application extends javafx.application.Application {
                                                     )
                                                 );
                                             }
-                                            Platform.runLater(() ->Application.this
-                                                ._homeworkSceneContorller
-                                                .homeworkList
-                                                .add(homework)
-                                            );
+                                            Platform.runLater(() -> {
+                                                Application.this
+                                                    ._homeworkSceneContorller
+                                                    .homeworkList
+                                                    .add(homework);
+                                                Application.this
+                                                    ._homeworkSceneContorller
+                                                    .homeworkList
+                                                    .sort((left, right) -> {
+                                                        if (left.isCompleted && ! right.isCompleted) return  1;
+                                                        if (! left.isCompleted && right.isCompleted) return -1;
+                                                        if (left.isCompleted ^ left.due.isAfter (right.due)) return  1;
+                                                        if (left.isCompleted ^ left.due.isBefore(right.due)) return -1;
+                                                        if (left.courseName.compareTo(right.courseName) > 0) return  1;
+                                                        if (left.courseName.compareTo(right.courseName) < 0) return -1;
+                                                        return left.name.compareTo(right.courseName);
+                                                    });
+                                            });
                                         }
                                         @Override public void failed(Exception e) {
                                             Application.this.onApplicationException(

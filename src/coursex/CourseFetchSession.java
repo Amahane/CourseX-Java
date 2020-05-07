@@ -120,7 +120,9 @@ public class CourseFetchSession {
                             new Homework(
                                 document.title().substring(
                                     "上载作业： ".length(),
-                                    document.title().length() - courseName.length() - 3
+                                    document.title().lastIndexOf(
+                                        " – " + courseName.substring(0, 1)
+                                    )
                                 ),
                                 courseName,
                                 description,
