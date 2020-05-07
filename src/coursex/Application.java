@@ -1,6 +1,5 @@
 package coursex;
 
-import java.io.Console;
 import java.util.*;
 import javafx.fxml.*;
 import javafx.stage.*;
@@ -19,7 +18,7 @@ public class Application extends javafx.application.Application {
 
         this._mainStage = stage;
         stage.setTitle("CourseX");
-        stage.setScene(this._homeworkScene);
+        stage.setScene(this._loginScene);
         stage.show();
     }
 
@@ -36,16 +35,29 @@ public class Application extends javafx.application.Application {
                             @Override public void completed(
                                 Map<String, String> courseNames
                             ) {
-                                Platform.runLater(() -> Application.this
-                                    ._progressSceneController
-                                    .onCompleteParseCourseList(courseNames));
-                                var multipleSession = new MultipleCourseParsingSession(
+                                Platform.runLater(() ->
+                                    Application.this
+                                        ._progressSceneController
+                                        .onCompleteParseCourseList()
+                                );
+                                var session = new CourseFetchSession(
                                     cookieStore,
                                     courseNames.keySet(),
                                     new FutureCallback<>() {
-                                        @Override public void completed(List<Homework> homeworks) {
-                                            for (var e : homeworks)
-                                                System.out.println(e.name);
+                                        @Override public void completed(Homework homework) {
+                                            if (Application.this._notReady) {
+                                                Application.this._notReady = false;
+                                                Platform.runLater(() ->
+                                                    Application.this._mainStage.setScene(
+                                                        Application.this._homeworkScene
+                                                    )
+                                                );
+                                            }
+                                            Platform.runLater(() ->Application.this
+                                                ._homeworkSceneContorller
+                                                .homeworkList
+                                                .add(homework)
+                                            );
                                         }
                                         @Override public void failed(Exception e) {
                                             Application.this.onApplicationException(
@@ -60,7 +72,7 @@ public class Application extends javafx.application.Application {
                                         }
                                     }
                                 );
-                                multipleSession.start();
+                                session.start();
                             }
                             @Override public void failed(Exception e) {
                                 Application.this.onApplicationException(
@@ -108,6 +120,8 @@ public class Application extends javafx.application.Application {
             Application.this._mainStage.setScene(Application.this._loginScene);
         });
     }
+
+    private boolean _notReady = true;
 
     private Stage _mainStage;
 

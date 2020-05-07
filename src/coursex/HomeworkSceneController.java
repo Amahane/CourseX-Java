@@ -13,7 +13,7 @@ public class HomeworkSceneController implements Initializable {
     public final ObservableList<Homework> homeworkList;
 
     public HomeworkSceneController() {
-        this.homeworkList = FXCollections.observableList(Mock.homeworks);
+        this.homeworkList = FXCollections.observableList(new ArrayList<>());
         this._context = new HomeworkSceneContext();
     }
 

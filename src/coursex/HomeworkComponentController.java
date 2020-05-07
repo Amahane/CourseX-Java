@@ -58,8 +58,8 @@ public class HomeworkComponentController {
         );
         this.remainingDaysDescriptionLabel.setText(
             homework.due.isBefore(LocalDateTime.now())
-                ? "Days Later"
-                : "Days Ago");
+                ? "Days Ago"
+                : "Days Later");
     }
 
     private void initNotCompletedBoxStyle(String color) {
@@ -87,25 +87,25 @@ public class HomeworkComponentController {
         this.tagListView.setItems(FXCollections.observableList(tagsRendered));
         this.tagListView.setCellFactory(listView -> new JFXListCell<>() {
                 @Override protected void updateItem(String tag, boolean empty) {
-                    this.setStyle(
-                        "-fx-background-color: transparent;" +
-                        "-fx-background-insets: 0; -fx-padding: 0;"
-                    );
-                    if (empty) return;
-                    var label = new Label();
-                    label.setText(tag);
-                    label.setStyle(
-                        "-fx-padding: 1 9 1 9;" +
-                        "-fx-font-size: 15;" +
-                        "-fx-text-fill: #424242;" +
-                        "-fx-background-color: " +
-                        context.courseColorAllocator.getColor(tag) + ";" +
-                        "-fx-background-radius: 12;"
-                    );
-                    var container = new VBox();
-                    container.setStyle("-fx-padding: 0 6 0 0");
-                    container.getChildren().add(label);
-                    this.setGraphic(container);
+                this.setStyle(
+                    "-fx-background-color: transparent;" +
+                    "-fx-background-insets: 0; -fx-padding: 0;"
+                );
+                if (empty) return;
+                var label = new Label();
+                label.setText(tag);
+                label.setStyle(
+                    "-fx-padding: 1 9 1 9;" +
+                    "-fx-font-size: 15;" +
+                    "-fx-text-fill: #424242;" +
+                    "-fx-background-color: " +
+                    context.courseColorAllocator.getColor(tag) + ";" +
+                    "-fx-background-radius: 12;"
+                );
+                var container = new VBox();
+                container.setStyle("-fx-padding: 0 6 0 0");
+                container.getChildren().add(label);
+                this.setGraphic(container);
                 }
             }
         );
@@ -114,7 +114,7 @@ public class HomeworkComponentController {
     private static String getColor(Homework homework) {
         return homework.isCompleted
             ? "#4caf50"
-            : homework.due.isAfter(LocalDateTime.now())
+            : homework.due.isBefore(LocalDateTime.now())
                 ? "#e91e63"
                 : "#ff9800";
     }
