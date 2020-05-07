@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox
+    xmlns="http://javafx.com/javafx"
+    xmlns:fx="http://javafx.com/fxml"
+    fx:controller="coursex.HomeworkComponentController"
+    style="-fx-font-family: DengXian;"
+    prefWidth="0" alignment="TOP_CENTER">
+    <BorderPane maxWidth="414" style="
+        -fx-background-color: #FFFFFF;
+        -fx-background-radius: 12;
+        -fx-effect: dropshadow(gaussian, #263238, 6, 0, 1, 1);
+        -fx-padding: 12">
+        <VBox.margin><Insets left="12" right="12" bottom="6"/></VBox.margin>
+        <left>
+            <StackPane>
+                <BorderPane.margin><Insets right="12"/></BorderPane.margin>
+                <VBox alignment="TOP_CENTER">
+                </VBox>
+                <VBox fx:id="_homeworkCompletedBox" alignment="TOP_CENTER">
+                    <HBox prefWidth="24" prefHeight="24" alignment="CENTER">
+                        <VBox.margin><Insets left="2" top="12" bottom="12"/></VBox.margin>
+                        <SVGPath fill="#4caf50" scaleX="3" scaleY="3">
+                            <content>M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z</content>
+                        </SVGPath>
+                    </HBox>
+                    <Label text="Done" style="
+                        -fx-font-family: Ubuntu;
+                        -fx-font-size: 21;
+                        -fx-text-fill: #4caf50"/>
+                </VBox>
+            </StackPane>
+        </left>
+        <right>
+
+        </right>
+        <center>
+            <VBox>
+                <Label fx:id="_courseNameLabel"/>
+                <Region prefHeight="3"/>
+                <Label fx:id="_homeworkNameLabel" style="-fx-font-size: 20;"/>
+                <Label fx:id="_homeworkDescriptionLabel" visible="false"/>
+            </VBox>
+        </center>
+    </BorderPane>
+
+</VBox>

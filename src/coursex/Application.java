@@ -10,7 +10,6 @@ import javafx.application.*;
 import org.apache.hc.core5.concurrent.*;
 import org.apache.hc.client5.http.cookie.*;
 
-
 public class Application extends javafx.application.Application {
     @Override public void start(Stage stage) throws Exception {
         Application._instance = this;
@@ -20,7 +19,7 @@ public class Application extends javafx.application.Application {
 
         this._mainStage = stage;
         stage.setTitle("CourseX");
-        stage.setScene(this._loginScene);
+        stage.setScene(this._homeworkScene);
         stage.show();
     }
 
@@ -114,9 +113,11 @@ public class Application extends javafx.application.Application {
 
     private Scene _loginScene;
     private Scene _progressScene;
+    private Scene _homeworkScene;
 
     private LoginSceneController    _loginSceneController;
     private ProgressSceneController _progressSceneController;
+    private HomeworkSceneController _homeworkSceneContorller;
 
     private void loadFonts() throws Exception{
         var fonts = new String[] {
@@ -135,6 +136,7 @@ public class Application extends javafx.application.Application {
     private void loadScenes() throws Exception {
         this.loadLoginScene();
         this.loadProgressScene();
+        this.loadHomeworkScene();
     }
 
     private void loadLoginScene() throws Exception {
@@ -153,6 +155,17 @@ public class Application extends javafx.application.Application {
         loader.load();
         this._progressSceneController = loader.getController();
         this._progressScene = new Scene(
+            loader.getRoot(),
+            Application.WINDOW_WIDTH,
+            Application.WINDOW_HEIGHT
+        );
+    }
+
+    private void loadHomeworkScene() throws Exception {
+        var loader = new FXMLLoader(this.getClass().getResource("homework.fxml"));
+        loader.load();
+        this._homeworkSceneContorller = loader.getController();
+        this._homeworkScene = new Scene(
             loader.getRoot(),
             Application.WINDOW_WIDTH,
             Application.WINDOW_HEIGHT

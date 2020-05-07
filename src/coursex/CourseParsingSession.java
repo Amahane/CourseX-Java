@@ -1,7 +1,7 @@
 package coursex;
 
 import java.io.*;
-import java.text.*;
+import java.time.*;
 import java.util.*;
 import java.util.function.*;
 
@@ -153,9 +153,9 @@ public class CourseParsingSession {
         );
     }
 
-    private Date parseDateTime(String s) {
+    private LocalDateTime parseDateTime(String s) {
         try {
-            return DateFormat.getDateTimeInstance().parse(s);
+            return LocalDateTime.parse(s);
         } catch (Exception e) {
             return null;
         }

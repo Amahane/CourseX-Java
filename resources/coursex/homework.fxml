@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.shape.SVGPath?>
+
+<?import javafx.scene.effect.DropShadow?>
+<StackPane
+    xmlns="http://javafx.com/javafx"
+    xmlns:fx="http://javafx.com/fxml"
+    fx:controller="coursex.HomeworkSceneController"
+    alignment="TOP_CENTER">
+    <Region maxHeight="300" style="
+        -fx-background-color: #2196f3;
+        -fx-effect: innershadow(gaussian, #546e7a, 12, 0, 0, -3)">
+        <shape><SVGPath><content>M0 0L3 0L3 1L0 2.7Z</content></SVGPath></shape>
+    </Region>
+    <BorderPane>
+        <top>
+            <VBox>
+                <VBox>
+                    <VBox.margin><Insets left="18" right="18" top="12" bottom="12"/></VBox.margin>
+                    <Label text="CourseX" style="
+                        -fx-font-family: Ubuntu;
+                        -fx-font-size: 32;
+                        -fx-text-fill: #FFFFFF;
+                        -fx-effect: dropshadow(gaussian, #263238, 6, 0, 1, 1);"/>
+                </VBox>
+            </VBox>
+        </top>
+        <center>
+            <JFXListView fx:id="_homeworkListView" style="
+                -fx-padding: 0;
+                -fx-background-insets: 0;
+                -fx-background-color: transparent; "/>
+        </center>
+    </BorderPane>
+</StackPane>

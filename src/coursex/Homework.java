@@ -1,9 +1,8 @@
 package coursex;
 
-import java.util.Date;
+import java.time.*;
 
 public class Homework {
-    public final Date    due;
     public final String  url;
     public final String  name;
     public final String  score;
@@ -11,12 +10,13 @@ public class Homework {
     public final String  scoreTotal;
     public final String  description;
     public final boolean isCompleted;
+    public final LocalDateTime due;
 
     public Homework(
         String  name,
         String  courseName,
         String  url,
-        Date    due,
+        LocalDateTime due,
         boolean isCompleted,
         String  description,
         String  score,
